@@ -1,6 +1,9 @@
+import { useState } from "react";
 import "./App.css";
 
 function App() {
+	const [showAllProjects, setShowAllProjects] = useState(false);
+
 	return (
 		<div className="portfolio">
 			{/* Navigation */}
@@ -83,16 +86,19 @@ function App() {
 					<div className="row">
 						<div className="col-lg-8 mx-auto">
 							<p className="lead text-center mb-4">
-								I'm a passionate mobile app developer and product designer
-								focused on creating beautiful, intuitive mobile experiences.
-								With expertise in React Native for mobile development,
-								Express.js for backend solutions, and Figma for product design,
-								I bring ideas to life from concept to deployment.
+								I'm an innovative Software Engineer with a B.Sc. in Software
+								Engineering from Babcock University and a proven track record of
+								architecting full-stack mobile and web solutions. I specialize in
+								React Native (Expo), Node.js, and Firebase, with hands-on experience
+								integrating AI/LLMs for academic productivity and building real-time
+								systems for logistics. As a natural leader, I've managed
+								cross-functional teams and overseen the full SDLC from UI/UX design
+								to production deployment on major app stores.
 							</p>
 							<div className="row g-4 mt-4">
 								<div className="col-md-4 text-center">
 									<div className="stat-card">
-										<h3 className="fw-bold text-primary">2+</h3>
+										<h3 className="fw-bold text-primary">3+</h3>
 										<p className="text-muted">Years Experience</p>
 									</div>
 								</div>
@@ -139,6 +145,7 @@ function App() {
 								<div className="d-flex flex-wrap gap-2">
 									<span className="badge bg-success">Express.js</span>
 									<span className="badge bg-success">Node.js</span>
+									<span className="badge bg-success">Firebase</span>
 									<span className="badge bg-success">REST APIs</span>
 									<span className="badge bg-success">MongoDB</span>
 								</div>
@@ -186,9 +193,6 @@ function App() {
 										<a href="#" className="btn btn-sm btn-outline-primary">
 											View Details
 										</a>
-										<a href="https://github.com/Luwaiz/KRides" target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-outline-secondary">
-											GitHub
-										</a>
 									</div>
 								</div>
 							</div>
@@ -212,9 +216,6 @@ function App() {
 									<div className="d-flex gap-2">
 										<a href="#" className="btn btn-sm btn-outline-primary">
 											View Details
-										</a>
-										<a href="https://github.com/Luwaiz/Xpense" target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-outline-secondary">
-											GitHub
 										</a>
 									</div>
 								</div>
@@ -240,13 +241,70 @@ function App() {
 										<a href="#" className="btn btn-sm btn-outline-primary">
 											View Design
 										</a>
-										<a href="https://github.com/Luwaiz/Tutor" target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-outline-secondary">
-											GitHub
-										</a>
 									</div>
 								</div>
 							</div>
 						</div>
+					</div>
+					{showAllProjects && (
+						<div className="row g-4 mt-4">
+							<div className="col-lg-4 col-md-6">
+								<div className="project-card">
+									<div className="project-image">
+										<img src="https://res.cloudinary.com/dmutxmoj3/image/upload/v1778433707/cause_ios_logo_payboj.png" alt="Cause Planner" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+									</div>
+									<div className="project-content">
+										<h4 className="fw-bold mb-2">Cause Planner</h4>
+										<p className="text-muted mb-3">
+											An AI-powered academic productivity platform featuring an "AI Study Buddy" that automates syllabus organization and quiz generation, with Optimistic UI and offline queues for seamless performance.
+										</p>
+										<div className="d-flex gap-2 mb-3">
+											<span className="badge bg-primary">React Native</span>
+											<span className="badge bg-success">Node.js</span>
+											<span className="badge bg-info">LLM</span>
+										</div>
+										<div className="d-flex gap-2">
+											<a href="#" className="btn btn-sm btn-outline-primary">
+												View Details
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div className="col-lg-4 col-md-6">
+								<div className="project-card">
+									<div className="project-image">
+										<img src="https://res.cloudinary.com/dmutxmoj3/image/upload/v1778434137/logo_mlp1vv.jpg" alt="Asthma Management App" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+									</div>
+									<div className="project-content">
+										<h4 className="fw-bold mb-2">Asthma</h4>
+										<p className="text-muted mb-3">
+											A cutting-edge asthma management tool combining React Native with a dual-engine AI backend (Gemini & OpenAI) for real-time risk assessments and personalized health coaching.
+										</p>
+										<div className="d-flex gap-2 mb-3">
+											<span className="badge bg-primary">React Native</span>
+											<span className="badge bg-primary">TypeScript</span>
+											<span className="badge bg-success">Firebase</span>
+											<span className="badge bg-info">AI</span>
+										</div>
+										<div className="d-flex gap-2">
+											<a href="#" className="btn btn-sm btn-outline-primary">
+												View Details
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					)}
+					<div className="text-center mt-5">
+						<button
+							type="button"
+							className="btn btn-outline-primary btn-lg px-4"
+							onClick={() => setShowAllProjects((v) => !v)}
+						>
+							{showAllProjects ? 'Show Less' : 'See All'}
+						</button>
 					</div>
 				</div>
 			</section>
@@ -276,12 +334,6 @@ function App() {
 											className="ms-2"
 										>
 											linkedin.com/in/emmanuel-eluwa
-										</a>
-									</div>
-									<div className="contact-item">
-										<strong>GitHub:</strong>
-										<a href="https://github.com/Luwaiz" className="ms-2">
-											github.com/Luwaiz
 										</a>
 									</div>
 								</div>

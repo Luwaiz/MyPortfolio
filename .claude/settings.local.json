@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c ' *)",
+      "Bash(python)",
+      "Bash(git -C \"c:/Users/Administrator/Documents/REACTJS/portfolio4\" status --short)",
+      "Bash(git -C \"c:/Users/Administrator/Documents/REACTJS/portfolio4\" diff src/App.tsx)",
+      "Bash(git -C \"c:/Users/Administrator/Documents/REACTJS/portfolio4\" checkout -- src/App.tsx)",
+      "Bash(npx tsc *)"
+    ]
+  }
+}
