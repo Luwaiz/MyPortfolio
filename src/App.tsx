@@ -251,7 +251,7 @@ function App() {
 							<div className="col-lg-4 col-md-6">
 								<div className="project-card">
 									<div className="project-image">
-										<img src="https://res.cloudinary.com/dmutxmoj3/image/upload/v1778433707/cause_ios_logo_payboj.png" alt="Cause Planner" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+										<img src="https://res.cloudinary.com/dmutxmoj3/image/upload/v1778434641/7_1_xov1kt.png" alt="Cause Planner" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
 									</div>
 									<div className="project-content">
 										<h4 className="fw-bold mb-2">Cause Planner</h4>
