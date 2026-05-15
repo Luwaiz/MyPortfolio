@@ -1,8 +1,14 @@
 import { useState } from "react";
+import { usePortfolioData } from "./hooks/usePortfolioData";
+import { ProjectCard } from "./components/ProjectCard";
 import "./App.css";
 
 function App() {
 	const [showAllProjects, setShowAllProjects] = useState(false);
+	const { projects, profile, loading } = usePortfolioData();
+
+	const visibleProjects = projects.filter((p) => p.defaultVisible);
+	const hiddenProjects = projects.filter((p) => !p.defaultVisible);
 
 	return (
 		<div className="portfolio">
@@ -23,29 +29,19 @@ function App() {
 					<div className="collapse navbar-collapse" id="navbarNav">
 						<ul className="navbar-nav ms-auto">
 							<li className="nav-item">
-								<a className="nav-link" href="#home">
-									Home
-								</a>
+								<a className="nav-link" href="#home">Home</a>
 							</li>
 							<li className="nav-item">
-								<a className="nav-link" href="#about">
-									About
-								</a>
+								<a className="nav-link" href="#about">About</a>
 							</li>
 							<li className="nav-item">
-								<a className="nav-link" href="#skills">
-									Skills
-								</a>
+								<a className="nav-link" href="#skills">Skills</a>
 							</li>
 							<li className="nav-item">
-								<a className="nav-link" href="#projects">
-									Projects
-								</a>
+								<a className="nav-link" href="#projects">Projects</a>
 							</li>
 							<li className="nav-item">
-								<a className="nav-link" href="#contact">
-									Contact
-								</a>
+								<a className="nav-link" href="#contact">Contact</a>
 							</li>
 						</ul>
 					</div>
@@ -54,25 +50,72 @@ function App() {
 
 			{/* Hero Section */}
 			<section id="home" className="hero-section">
+				<div className="hero-orb hero-orb-1" />
+				<div className="hero-orb hero-orb-2" />
+				<div className="hero-orb hero-orb-3" />
 				<div className="container">
-					<div className="row align-items-center min-vh-100">
-						<div className="col-lg-8 mx-auto text-center">
-							<h1 className="display-3 fw-bold mb-3 animate-fade-in">
-								Hi, I'm <span className="text-primary">Eluwa Emmanuel</span>
+					<div className="row align-items-center min-vh-100 py-5">
+						<div className="col-lg-7 hero-left">
+							<div className="hero-available-badge animate-slide-up">
+								<span className="hero-pulse-dot" />
+								Available for new projects
+							</div>
+							<h1 className="hero-title animate-slide-up-1">
+								Hi, I'm <br />
+								<span className="hero-name-gradient">Eluwa Emmanuel</span>
 							</h1>
-							<p className="lead mb-4 text-bold animate-fade-in-delay">
-								Mobile App Developer | Product Designer
+							<p className="hero-subtitle animate-slide-up-2">
+								{profile?.heroSubtitle ?? "Mobile App Developer | Product Designer"}
 							</p>
-							<div className="d-flex gap-3 justify-content-center animate-fade-in-delay-2">
+							<div className="d-flex gap-3 animate-slide-up-3 flex-wrap">
 								<a href="#projects" className="btn btn-primary btn-lg px-4">
 									View My Work
 								</a>
-								<a
-									href="#contact"
-									className="btn btn-outline-primary btn-lg px-4"
-								>
+								<a href="#contact" className="btn btn-outline-primary btn-lg px-4">
 									Contact Me
 								</a>
+							</div>
+							<div className="hero-stats animate-slide-up-4">
+								<div className="hero-stat">
+									<span className="hero-stat-number">{profile?.yearsExperience ?? "3+"}</span>
+									<span className="hero-stat-label">Years Exp.</span>
+								</div>
+								<div className="hero-stat-divider" />
+								<div className="hero-stat">
+									<span className="hero-stat-number">{profile?.appsBuilt ?? "10+"}</span>
+									<span className="hero-stat-label">Apps Built</span>
+								</div>
+								<div className="hero-stat-divider" />
+								<div className="hero-stat">
+									<span className="hero-stat-number">{profile?.happyClients ?? "5+"}</span>
+									<span className="hero-stat-label">Clients</span>
+								</div>
+							</div>
+						</div>
+						<div className="col-lg-5 d-none d-lg-flex justify-content-center animate-slide-up-2">
+							<div className="hero-visual">
+								<div className="hero-card-mockup">
+									<div className="hero-card-dots">
+										<div className="hero-card-dot dot-red" />
+										<div className="hero-card-dot dot-yellow" />
+										<div className="hero-card-dot dot-green" />
+									</div>
+									<div className="hero-code-lines">
+										<div className="hero-code-line" style={{ width: "75%" }} />
+										<div className="hero-code-line accent" style={{ width: "55%" }} />
+										<div className="hero-code-line" style={{ width: "88%" }} />
+										<div className="hero-code-line accent" style={{ width: "42%" }} />
+										<div className="hero-code-line" style={{ width: "68%" }} />
+										<div className="hero-code-line" style={{ width: "30%" }} />
+										<div className="hero-code-line accent" style={{ width: "72%" }} />
+										<div className="hero-code-line" style={{ width: "50%" }} />
+										<div className="hero-code-line" style={{ width: "80%" }} />
+										<div className="hero-code-line accent" style={{ width: "38%" }} />
+									</div>
+								</div>
+								<div className="hero-floating-badge fb-1">⚛ React Native</div>
+								<div className="hero-floating-badge fb-2">🔥 Firebase</div>
+								<div className="hero-floating-badge fb-3">🤖 AI / LLM</div>
 							</div>
 						</div>
 					</div>
@@ -86,31 +129,30 @@ function App() {
 					<div className="row">
 						<div className="col-lg-8 mx-auto">
 							<p className="lead text-center mb-4">
-								I'm an innovative Software Engineer with a B.Sc. in Software
-								Engineering from Babcock University and a proven track record of
-								architecting full-stack mobile and web solutions. I specialize in
-								React Native (Expo), Node.js, and Firebase, with hands-on experience
-								integrating AI/LLMs for academic productivity and building real-time
-								systems for logistics. As a natural leader, I've managed
-								cross-functional teams and overseen the full SDLC from UI/UX design
-								to production deployment on major app stores.
+								{profile?.aboutText}
 							</p>
 							<div className="row g-4 mt-4">
 								<div className="col-md-4 text-center">
 									<div className="stat-card">
-										<h3 className="fw-bold text-primary">3+</h3>
+										<h3 className="fw-bold text-primary">
+											{profile?.yearsExperience ?? "3+"}
+										</h3>
 										<p className="text-muted">Years Experience</p>
 									</div>
 								</div>
 								<div className="col-md-4 text-center">
 									<div className="stat-card">
-										<h3 className="fw-bold text-primary">10+</h3>
+										<h3 className="fw-bold text-primary">
+											{profile?.appsBuilt ?? "10+"}
+										</h3>
 										<p className="text-muted">Apps Developed</p>
 									</div>
 								</div>
 								<div className="col-md-4 text-center">
 									<div className="stat-card">
-										<h3 className="fw-bold text-primary">5+</h3>
+										<h3 className="fw-bold text-primary">
+											{profile?.happyClients ?? "5+"}
+										</h3>
 										<p className="text-muted">Happy Clients</p>
 									</div>
 								</div>
@@ -170,142 +212,41 @@ function App() {
 			<section id="projects" className="section-padding bg-light">
 				<div className="container">
 					<h2 className="section-title text-center mb-5">Featured Projects</h2>
-					<div className="row g-4">
-						<div className="col-lg-4 col-md-6">
-							<div className="project-card">
-								<div className="project-image">
-									<img src="https://res.cloudinary.com/dmutxmoj3/image/upload/v1760514688/Screenshot_2025-10-15-08-42-03-125_com.eluwaiz.KRides_xnhztw.jpg" alt="KRides App" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-								</div>
-								<div className="project-content">
-									<h4 className="fw-bold mb-2">KRides</h4>
-									<p className="text-muted mb-3">
-										A full-featured transportation mobile app for booking
-										tricycles within vast institutions built with React Native,
-										Firebase and Express.js backend.
-									</p>
-									<div className="d-flex gap-2 mb-3">
-										<span className="badge bg-primary">React Native</span>
-										<span className="badge bg-success">Express.js</span>
-										<span className="badge bg-warning">Figma</span>
-										<span className="badge bg-success">Firebase</span>
-									</div>
-									<div className="d-flex gap-2">
-										<a href="#" className="btn btn-sm btn-outline-primary">
-											View Details
-										</a>
-									</div>
-								</div>
+					{loading ? (
+						<div className="text-center py-5">
+							<div className="spinner-border text-primary" role="status">
+								<span className="visually-hidden">Loading...</span>
 							</div>
 						</div>
-						<div className="col-lg-4 col-md-6">
-							<div className="project-card">
-								<div className="project-image">
-									<img src="https://res.cloudinary.com/dmutxmoj3/image/upload/v1760514940/XpensePage_aulc1k.jpg" alt="Expense Tracking App" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-								</div>
-								<div className="project-content">
-									<h4 className="fw-bold mb-2">Expense Tracking App</h4>
-									<p className="text-muted mb-3">
-										An intuitive expense tracking mobile app to help users
-										manage their finances effectively.
-									</p>
-									<div className="d-flex gap-2 mb-3">
-										<span className="badge bg-primary">React Native</span>
-										<span className="badge bg-success">Node.js</span>
-										<span className="badge bg-warning">Figma</span>
-									</div>
-									<div className="d-flex gap-2">
-										<a href="#" className="btn btn-sm btn-outline-primary">
-											View Details
-										</a>
-									</div>
-								</div>
+					) : (
+						<>
+							<div className="row g-4">
+								{visibleProjects.map((project) => (
+									<ProjectCard key={project.id} project={project} />
+								))}
 							</div>
-						</div>
-						<div className="col-lg-4 col-md-6">
-							<div className="project-card">
-								<div className="project-image">
-									<img src="https://res.cloudinary.com/dmutxmoj3/image/upload/v1760514908/TutorPage_mhvvus.jpg" alt="Tutor App" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-								</div>
-								<div className="project-content">
-									<h4 className="fw-bold mb-2">Tutor App</h4>
-									<p className="text-muted mb-3">
-										A mobile app connecting students with study materials for various
-										subjects, featuring quiz functionalities and progress tracking.
-									</p>
-									<div className="d-flex gap-2 mb-3">
-										<span className="badge bg-primary">React Native</span>
-										<span className="badge bg-warning">Figma</span>
-										<span className="badge bg-success">Firebase</span>
-									</div>
-									<div className="d-flex gap-2">
-										<a href="#" className="btn btn-sm btn-outline-primary">
-											View Design
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					{showAllProjects && (
-						<div className="row g-4 mt-4">
-							<div className="col-lg-4 col-md-6">
-								<div className="project-card">
-									<div className="project-image">
-										<img src="https://res.cloudinary.com/dmutxmoj3/image/upload/v1778434641/7_1_xov1kt.png" alt="Cause Planner" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-									</div>
-									<div className="project-content">
-										<h4 className="fw-bold mb-2">Cause Planner</h4>
-										<p className="text-muted mb-3">
-											An AI-powered academic productivity platform featuring an "AI Study Buddy" that automates syllabus organization and quiz generation, with Optimistic UI and offline queues for seamless performance.
-										</p>
-										<div className="d-flex gap-2 mb-3">
-											<span className="badge bg-primary">React Native</span>
-											<span className="badge bg-success">Node.js</span>
-											<span className="badge bg-info">LLM</span>
+							{hiddenProjects.length > 0 && (
+								<>
+									{showAllProjects && (
+										<div className="row g-4 mt-4">
+											{hiddenProjects.map((project) => (
+												<ProjectCard key={project.id} project={project} />
+											))}
 										</div>
-										<div className="d-flex gap-2">
-											<a href="#" className="btn btn-sm btn-outline-primary">
-												View Details
-											</a>
-										</div>
+									)}
+									<div className="text-center mt-5">
+										<button
+											type="button"
+											className="btn btn-outline-primary btn-lg px-4"
+											onClick={() => setShowAllProjects((v) => !v)}
+										>
+											{showAllProjects ? "Show Less" : "See All"}
+										</button>
 									</div>
-								</div>
-							</div>
-							<div className="col-lg-4 col-md-6">
-								<div className="project-card">
-									<div className="project-image">
-										<img src="https://res.cloudinary.com/dmutxmoj3/image/upload/v1778434137/logo_mlp1vv.jpg" alt="Asthma Management App" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-									</div>
-									<div className="project-content">
-										<h4 className="fw-bold mb-2">Asthma</h4>
-										<p className="text-muted mb-3">
-											A cutting-edge asthma management tool combining React Native with a dual-engine AI backend (Gemini & OpenAI) for real-time risk assessments and personalized health coaching.
-										</p>
-										<div className="d-flex gap-2 mb-3">
-											<span className="badge bg-primary">React Native</span>
-											<span className="badge bg-primary">TypeScript</span>
-											<span className="badge bg-success">Firebase</span>
-											<span className="badge bg-info">AI</span>
-										</div>
-										<div className="d-flex gap-2">
-											<a href="#" className="btn btn-sm btn-outline-primary">
-												View Details
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+								</>
+							)}
+						</>
 					)}
-					<div className="text-center mt-5">
-						<button
-							type="button"
-							className="btn btn-outline-primary btn-lg px-4"
-							onClick={() => setShowAllProjects((v) => !v)}
-						>
-							{showAllProjects ? 'Show Less' : 'See All'}
-						</button>
-					</div>
 				</div>
 			</section>
 
@@ -323,23 +264,20 @@ function App() {
 								<div className="d-flex flex-column gap-3">
 									<div className="contact-item">
 										<strong>Email:</strong>
-										<a href="mailto:your.email@example.com" className="ms-2">
-											emmaeluwa2021@gmail.com
+										<a href={`mailto:${profile?.email}`} className="ms-2">
+											{profile?.email}
 										</a>
 									</div>
 									<div className="contact-item">
 										<strong>LinkedIn:</strong>
-										<a
-											href="https://linkedin.com/in/emmanuel-eluwa-138606276/"
-											className="ms-2"
-										>
-											linkedin.com/in/emmanuel-eluwa
+										<a href={profile?.linkedinUrl} className="ms-2">
+											{profile?.linkedinLabel}
 										</a>
 									</div>
 								</div>
 								<div className="text-center mt-4">
 									<a
-										href="mailto:emmaeluwa2021@gmail.com"
+										href={`mailto:${profile?.email}`}
 										className="btn btn-primary btn-lg"
 									>
 										Send Message
