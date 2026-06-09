@@ -26,9 +26,20 @@ export function ProjectCard({ project }: Props) {
             ))}
           </div>
           <div className="d-flex gap-2">
-            <a href="#" className="btn btn-sm btn-outline-primary">
-              {project.buttonLabel}
-            </a>
+            {project.linkUrl ? (
+              <a
+                href={project.linkUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-sm btn-outline-primary"
+              >
+                {project.buttonLabel}
+              </a>
+            ) : (
+              <span className="btn btn-sm btn-outline-primary disabled" aria-disabled="true">
+                {project.buttonLabel}
+              </span>
+            )}
           </div>
         </div>
       </div>

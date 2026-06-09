@@ -1,14 +1,23 @@
 import { useState } from "react";
 import { usePortfolioData } from "./hooks/usePortfolioData";
 import { ProjectCard } from "./components/ProjectCard";
+import type { ProjectCategory } from "./types";
 import "./App.css";
+
+const CATEGORY_ORDER: ProjectCategory[] = ["mobile", "web"];
+const CATEGORY_LABELS: Record<ProjectCategory, string> = {
+	mobile: "Mobile App Development",
+	web: "Web Development",
+};
 
 function App() {
 	const [showAllProjects, setShowAllProjects] = useState(false);
 	const { projects, profile, loading } = usePortfolioData();
 
-	const visibleProjects = projects.filter((p) => p.defaultVisible);
-	const hiddenProjects = projects.filter((p) => !p.defaultVisible);
+	const hasHiddenProjects = projects.some((p) => !p.defaultVisible);
+	const shownProjects = showAllProjects
+		? projects
+		: projects.filter((p) => p.defaultVisible);
 
 	return (
 		<div className="portfolio">
@@ -220,30 +229,34 @@ function App() {
 						</div>
 					) : (
 						<>
-							<div className="row g-4">
-								{visibleProjects.map((project) => (
-									<ProjectCard key={project.id} project={project} />
-								))}
-							</div>
-							{hiddenProjects.length > 0 && (
-								<>
-									{showAllProjects && (
-										<div className="row g-4 mt-4">
-											{hiddenProjects.map((project) => (
+							{CATEGORY_ORDER.map((category) => {
+								const categoryProjects = shownProjects.filter(
+									(p) => (p.category ?? "mobile") === category
+								);
+								if (categoryProjects.length === 0) return null;
+								return (
+									<div key={category} className="mb-5">
+										<h3 className="projects-category-title mb-4">
+											{CATEGORY_LABELS[category]}
+										</h3>
+										<div className="row g-4">
+											{categoryProjects.map((project) => (
 												<ProjectCard key={project.id} project={project} />
 											))}
 										</div>
-									)}
-									<div className="text-center mt-5">
-										<button
-											type="button"
-											className="btn btn-outline-primary btn-lg px-4"
-											onClick={() => setShowAllProjects((v) => !v)}
-										>
-											{showAllProjects ? "Show Less" : "See All"}
-										</button>
 									</div>
-								</>
+								);
+							})}
+							{hasHiddenProjects && (
+								<div className="text-center mt-4">
+									<button
+										type="button"
+										className="btn btn-outline-primary btn-lg px-4"
+										onClick={() => setShowAllProjects((v) => !v)}
+									>
+										{showAllProjects ? "Show Less" : "See All"}
+									</button>
+								</div>
 							)}
 						</>
 					)}

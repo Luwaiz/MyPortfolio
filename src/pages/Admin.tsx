@@ -27,6 +27,8 @@ const emptyProject: Omit<Project, "id"> = {
   buttonLabel: "View Details",
   defaultVisible: true,
   order: 0,
+  category: "mobile",
+  linkUrl: "",
 };
 
 const emptyProfile: Profile = {
@@ -87,6 +89,8 @@ export function Admin() {
       buttonLabel: project.buttonLabel,
       defaultVisible: project.defaultVisible,
       order: project.order,
+      category: project.category ?? "mobile",
+      linkUrl: project.linkUrl ?? "",
     });
     setShowProjectForm(true);
   }
@@ -228,7 +232,18 @@ export function Admin() {
                           required
                         />
                       </div>
-                      <div className="col-md-3">
+                      <div className="col-md-2">
+                        <label className="form-label">Category</label>
+                        <select
+                          className="form-select"
+                          value={projectForm.category ?? "mobile"}
+                          onChange={(e) => setProjectForm((f) => ({ ...f, category: e.target.value as Project["category"] }))}
+                        >
+                          <option value="mobile">Mobile App</option>
+                          <option value="web">Web</option>
+                        </select>
+                      </div>
+                      <div className="col-md-2">
                         <label className="form-label">Button Label</label>
                         <input
                           className="form-control"
@@ -237,7 +252,7 @@ export function Admin() {
                           required
                         />
                       </div>
-                      <div className="col-md-3">
+                      <div className="col-md-2">
                         <label className="form-label">Order</label>
                         <input
                           type="number"
@@ -271,6 +286,19 @@ export function Admin() {
                           className="form-control"
                           value={projectForm.imageAlt}
                           onChange={(e) => setProjectForm((f) => ({ ...f, imageAlt: e.target.value }))}
+                        />
+                      </div>
+                      <div className="col-12">
+                        <label className="form-label">
+                          Button Link (URL){" "}
+                          <span className="text-muted small">— where the button opens; leave blank to disable it</span>
+                        </label>
+                        <input
+                          type="url"
+                          className="form-control"
+                          placeholder="https://example.com"
+                          value={projectForm.linkUrl ?? ""}
+                          onChange={(e) => setProjectForm((f) => ({ ...f, linkUrl: e.target.value }))}
                         />
                       </div>
 
@@ -363,6 +391,9 @@ export function Admin() {
                           <h6 className="fw-bold mb-0">{project.title}</h6>
                           <span className={`badge ${project.defaultVisible ? "bg-success" : "bg-secondary"}`}>
                             {project.defaultVisible ? "Visible" : "Hidden"}
+                          </span>
+                          <span className="badge bg-info">
+                            {(project.category ?? "mobile") === "web" ? "Web" : "Mobile"}
                           </span>
                           <span className="badge bg-light text-dark border">#{project.order}</span>
                         </div>

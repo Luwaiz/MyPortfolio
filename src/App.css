@@ -335,6 +335,16 @@ html {
 	border-radius: 2px;
 }
 
+/* Project category subheadings */
+.projects-category-title {
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: #1e3a5f;
+	display: inline-block;
+	padding-bottom: 0.5rem;
+	border-bottom: 3px solid #1e3a5f;
+}
+
 /* Stat Cards */
 .stat-card {
 	padding: 2rem;

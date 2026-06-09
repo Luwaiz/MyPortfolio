@@ -3,6 +3,8 @@ export interface Badge {
   color: "primary" | "success" | "warning" | "info" | "danger" | "secondary";
 }
 
+export type ProjectCategory = "mobile" | "web";
+
 export interface Project {
   id?: string;
   title: string;
@@ -13,6 +15,10 @@ export interface Project {
   buttonLabel: string;
   defaultVisible: boolean;
   order: number;
+  // Optional so existing Firestore docs without it still load; defaults to "mobile" at render.
+  category?: ProjectCategory;
+  // Destination for the project card button. If empty, the button is shown disabled.
+  linkUrl?: string;
 }
 
 export interface Profile {

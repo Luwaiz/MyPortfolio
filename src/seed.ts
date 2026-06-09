@@ -19,6 +19,7 @@ const projects: Omit<Project, "id">[] = [
     buttonLabel: "View Details",
     defaultVisible: true,
     order: 0,
+    category: "mobile",
   },
   {
     title: "Cause Planner",
@@ -35,6 +36,7 @@ const projects: Omit<Project, "id">[] = [
     buttonLabel: "View Details",
     defaultVisible: true,
     order: 1,
+    category: "mobile",
   },
   {
     title: "Asthma",
@@ -52,6 +54,7 @@ const projects: Omit<Project, "id">[] = [
     buttonLabel: "View Details",
     defaultVisible: true,
     order: 2,
+    category: "mobile",
   },
   {
     title: "Expense Tracking App",
@@ -68,6 +71,7 @@ const projects: Omit<Project, "id">[] = [
     buttonLabel: "View Details",
     defaultVisible: false,
     order: 3,
+    category: "mobile",
   },
   {
     title: "Tutor App",
@@ -84,6 +88,25 @@ const projects: Omit<Project, "id">[] = [
     buttonLabel: "View Design",
     defaultVisible: false,
     order: 4,
+    category: "mobile",
+  },
+  {
+    title: "Developer Portfolio",
+    description:
+      "This very site — a responsive personal portfolio built with React, TypeScript and Vite, backed by a Firebase/Firestore CMS and a custom admin dashboard for managing projects and profile content without redeploys.",
+    imageUrl:
+      "https://res.cloudinary.com/dmutxmoj3/image/upload/v1760514688/Screenshot_2025-10-15-08-42-03-125_com.eluwaiz.KRides_xnhztw.jpg",
+    imageAlt: "Developer Portfolio Website",
+    badges: [
+      { label: "React", color: "primary" },
+      { label: "TypeScript", color: "primary" },
+      { label: "Vite", color: "info" },
+      { label: "Firebase", color: "success" },
+    ],
+    buttonLabel: "View Code",
+    defaultVisible: true,
+    order: 5,
+    category: "web",
   },
 ];
 
